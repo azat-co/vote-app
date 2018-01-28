@@ -5,7 +5,36 @@ import {graphql, QueryRenderer} from 'react-relay';
 
 import environment from './createRelayEnvironment.js'
 
-class App extends Component {
+class App extends React.Component {
+  render() {
+    return (
+      <QueryRenderer
+        environment={environment}
+        query={graphql`
+          query AppQuery {
+            viewer {
+              id
+            }  
+          }
+        `}
+        variables={{}}
+        render={({error, props}) => {
+          if (error) {
+            return <div>Error!</div>;
+          }
+          if (!props) {
+            return <div>Loading...</div>;
+          }
+          return <div>
+            User ID: {props.viewer.id}
+          </div>;
+        }}
+      />
+    );
+  }
+}
+
+class Hello extends Component {
   render() {
     return (
       <div className="App">

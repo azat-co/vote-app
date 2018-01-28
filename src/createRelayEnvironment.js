@@ -1,4 +1,5 @@
-import RELAY_API_ENDPOINT from '../package.json'
+import {RELAY_API_ENDPOINT} from '../package.json'
+
 import {
   Environment,
   Network,
