@@ -13,7 +13,14 @@ class App extends React.Component {
         query={graphql`
           query AppQuery {
             viewer {
-              id
+              allTopics (first: 1000) {
+                edges {
+                  node {                    
+                    id
+                    title
+                  }
+                }
+              }
             }  
           }
         `}
@@ -26,7 +33,7 @@ class App extends React.Component {
             return <div>Loading...</div>;
           }
           return <div>
-            User ID: {props.viewer.id}
+             {props.viewer.allTopics.edges}
           </div>;
         }}
       />
