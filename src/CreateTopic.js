@@ -9,7 +9,7 @@ import {
 } from 'react-relay';
 
 import { QueryRenderer } from 'react-relay';
-import environment from './createRelayEnvironment.js'
+// import environment from './createRelayEnvironment.js'
 
 let badgeClasses = {
   'Proposal': 'secondary',
@@ -37,7 +37,7 @@ class CreateTopic extends React.Component {
   render () {
     return (
       <QueryRenderer 
-        environment={environment}
+        environment={this.props.environment}
         query={CreateTopicViewerQuery}
         render={({error, props}) => {
           if (error) {
@@ -45,6 +45,7 @@ class CreateTopic extends React.Component {
               <div>{error.message}</div>
             )
           } else if (props) {
+            console.log(props.viewer.id)
             return (
               <div className='w-100 pa4 flex justify-center'>
                 <div style={{ maxWidth: 400 }} className=''>
@@ -68,10 +69,11 @@ class CreateTopic extends React.Component {
                     />
                   }
                   {this.state.description && this.state.title &&
-                    <button className='pa3 bg-black-10 bn dim ttu pointer' onClick={() => this._handlePost(props.viewer.id)}>Post</button>
+                    <button className='pa3 bg-black-10 bn dim ttu pointer' onClick={
+                      () => this._handlePost(props.viewer.id)}>Post</button>
                   }
                   <div style={{textAlign: "center", color: "red"}}>
-                    <Link to="/" >Cancel</Link>
+                    <Link to="/app" >Cancel</Link>
                   </div>
                 </div>
               </div>
@@ -85,7 +87,7 @@ class CreateTopic extends React.Component {
 
   _handlePost = (viewerId) => {
     const {description, title} = this.state
-    CreateTopicMutation(description, title, viewerId,  () => this.props.history.replace('/app'))
+    CreateTopicMutation(description, title, viewerId,  'Proposal', () => this.props.history.replace('/app'))
   }
 
 }

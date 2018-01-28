@@ -19,7 +19,8 @@ class App extends React.Component {
         query={graphql`
           query AppQuery {
             viewer {
-              allTopics (first: 1000, orderBy: votes_DESC) {
+              id
+              allTopics (first: 1000, orderBy: votes_DESC) @connection(key: "ListTopics_allTopics")  {
                 edges {
                   node {                    
                     id
@@ -34,6 +35,7 @@ class App extends React.Component {
         `}
         variables={{}}
         render={({ error, props }) => {
+          console.log('tut', props)
           if (error) {
             return <div>Error!</div>;
           }
@@ -49,8 +51,8 @@ class App extends React.Component {
               <p className="App-intro">
                 To get started, select a topic for a new course to learn more about it and vote. Or <Link to="/app/create">propose (create) a  new topic.</Link>
               </p>
-              <Route path='/app' exact component={() => <List topics={props.viewer.allTopics.edges} />}/>              
-              <Route path='/app/create'  exact component={CreateTopic}/>              
+              <Route path='/app/create'  exact component={()=><CreateTopic environment={environment}/>}/>              
+              <List topics={props.viewer.allTopics.edges} />
               <Route path='/app/topics/:topicId' exact component={Topic}/>              
             </div>
           </div>
