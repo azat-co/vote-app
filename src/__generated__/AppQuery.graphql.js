@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash ab70571e1cab466d7583eefebbdce4ff
+ * @relayHash 32f75d3fd781c0ab22f91f67aa0fc96b
  */
 
 /* eslint-disable */
@@ -16,6 +16,8 @@ export type AppQueryResponse = {|
         +node: {|
           +id: string;
           +title: string;
+          +votes: number;
+          +status: "Proposal" | "Published" | "Draft" | "Rejected" | "OnHold";
         |};
       |}>;
     |};
@@ -27,11 +29,13 @@ export type AppQueryResponse = {|
 /*
 query AppQuery {
   viewer {
-    allTopics(first: 1000) {
+    allTopics(first: 1000, orderBy: votes_DESC) {
       edges {
         node {
           id
           title
+          votes
+          status
         }
       }
     }
@@ -64,6 +68,12 @@ const batch /*: ConcreteBatch*/ = {
                 "name": "first",
                 "value": 1000,
                 "type": "Int"
+              },
+              {
+                "kind": "Literal",
+                "name": "orderBy",
+                "value": "votes_DESC",
+                "type": "TopicOrderBy"
               }
             ],
             "concreteType": "TopicConnection",
@@ -99,6 +109,20 @@ const batch /*: ConcreteBatch*/ = {
                         "args": null,
                         "name": "title",
                         "storageKey": null
+                      },
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "args": null,
+                        "name": "votes",
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "args": null,
+                        "name": "status",
+                        "storageKey": null
                       }
                     ],
                     "storageKey": null
@@ -107,7 +131,7 @@ const batch /*: ConcreteBatch*/ = {
                 "storageKey": null
               }
             ],
-            "storageKey": "allTopics{\"first\":1000}"
+            "storageKey": "allTopics{\"first\":1000,\"orderBy\":\"votes_DESC\"}"
           }
         ],
         "storageKey": null
@@ -142,6 +166,12 @@ const batch /*: ConcreteBatch*/ = {
                 "name": "first",
                 "value": 1000,
                 "type": "Int"
+              },
+              {
+                "kind": "Literal",
+                "name": "orderBy",
+                "value": "votes_DESC",
+                "type": "TopicOrderBy"
               }
             ],
             "concreteType": "TopicConnection",
@@ -177,6 +207,20 @@ const batch /*: ConcreteBatch*/ = {
                         "args": null,
                         "name": "title",
                         "storageKey": null
+                      },
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "args": null,
+                        "name": "votes",
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "args": null,
+                        "name": "status",
+                        "storageKey": null
                       }
                     ],
                     "storageKey": null
@@ -185,7 +229,7 @@ const batch /*: ConcreteBatch*/ = {
                 "storageKey": null
               }
             ],
-            "storageKey": "allTopics{\"first\":1000}"
+            "storageKey": "allTopics{\"first\":1000,\"orderBy\":\"votes_DESC\"}"
           },
           {
             "kind": "ScalarField",
@@ -199,7 +243,7 @@ const batch /*: ConcreteBatch*/ = {
       }
     ]
   },
-  "text": "query AppQuery {\n  viewer {\n    allTopics(first: 1000) {\n      edges {\n        node {\n          id\n          title\n        }\n      }\n    }\n    id\n  }\n}\n"
+  "text": "query AppQuery {\n  viewer {\n    allTopics(first: 1000, orderBy: votes_DESC) {\n      edges {\n        node {\n          id\n          title\n          votes\n          status\n        }\n      }\n    }\n    id\n  }\n}\n"
 };
 
 module.exports = batch;
