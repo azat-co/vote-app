@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 714c412a9ae916cfc69ff491358ae001
+ * @relayHash 64fe04772539a99451c9b219840880fa
  */
 
 /* eslint-disable */
@@ -92,7 +92,7 @@ const batch /*: ConcreteBatch*/ = {
               }
             ],
             "concreteType": "TopicConnection",
-            "name": "__ListTopics_allTopics_connection",
+            "name": "__TopicList_allTopics_connection",
             "plural": false,
             "selections": [
               {
@@ -213,7 +213,7 @@ const batch /*: ConcreteBatch*/ = {
                 ]
               }
             ],
-            "storageKey": "__ListTopics_allTopics_connection{\"orderBy\":\"votes_DESC\"}"
+            "storageKey": "__TopicList_allTopics_connection{\"orderBy\":\"votes_DESC\"}"
           }
         ],
         "storageKey": null
@@ -418,7 +418,7 @@ const batch /*: ConcreteBatch*/ = {
             ],
             "handle": "connection",
             "name": "allTopics",
-            "key": "ListTopics_allTopics",
+            "key": "TopicList_allTopics",
             "filters": [
               "orderBy"
             ]

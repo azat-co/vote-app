@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.png';
 import './App.css';
 import { graphql, QueryRenderer } from 'react-relay';
-import {Link} from 'react-router-dom'
+import {Link, Switch} from 'react-router-dom'
 import {Route} from 'react-router'
 
 import List from './List.js'
@@ -20,7 +20,7 @@ class App extends React.Component {
           query AppQuery {
             viewer {
               id
-              allTopics (first: 1000, orderBy: votes_DESC) @connection(key: "ListTopics_allTopics")  {
+              allTopics (first: 1000, orderBy: votes_DESC) @connection(key: "TopicList_allTopics")  {
                 edges {
                   node {                    
                     id
@@ -49,11 +49,14 @@ class App extends React.Component {
             </header>
             <div className="container-fluid">
               <p className="App-intro">
-                To get started, select a topic for a new course to learn more about it and vote. Or <Link to="/app/create">propose (create) a  new topic.</Link>
+                To get started, select a topic for a new course to learn more about it and vote. Or <Link to="/create-topic">propose (create) a  new topic.</Link>
               </p>
-              <Route path='/app/create'  exact component={()=><CreateTopic environment={environment}/>}/>              
+              <Switch>
+                <Route path="/help" exact component={()=>'this is help'}/>
+                <Route path='/create-topic' component={()=><CreateTopic environment={environment} viewerId={props.viewer.id}/>}/>              
+                <Route path='/topics/:topicId' component={Topic}/>              
+              </Switch>
               <List topics={props.viewer.allTopics.edges} />
-              <Route path='/app/topics/:topicId' exact component={Topic}/>              
             </div>
           </div>
         }}

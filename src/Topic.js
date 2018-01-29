@@ -27,14 +27,14 @@ class Topic extends Component {
         query={graphql`
           query TopicQuery ($topicId: ID!) {
             viewer {
-            Topic (id: $topicId) {                 
+              Topic (id: $topicId) {                 
                 id
                 title
                 votes
                 status
                 description
+              }
             }
-          }
           }
         `}
         variables={{

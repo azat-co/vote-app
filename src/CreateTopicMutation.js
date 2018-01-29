@@ -39,23 +39,23 @@ export default function CreateTopicMutation(description, title, viewerId, status
        callback()
       },
       onError: err => console.error(err),
-      // optimisticUpdater: (proxyStore) => {
-      //   // 1 - create the `newTopic` as a mock that can be added to the store
-      //   const id = 'client:newTopic:' + tempID++
-      //   const newTopic = proxyStore.create(id, 'Topic')
-      //   newTopic.setValue(id, 'id')
-      //   newTopic.setValue(description, 'description')
-      //   newTopic.setValue(title, 'title')
-      //   newTopic.setValue(status, 'status')
+      optimisticUpdater: (proxyStore) => {
+        // 1 - create the `newTopic` as a mock that can be added to the store
+        const id = 'client:newTopic:' + tempID++
+        const newTopic = proxyStore.create(id, 'Topic')
+        newTopic.setValue(id, 'id')
+        newTopic.setValue(description, 'description')
+        newTopic.setValue(title, 'title')
+        newTopic.setValue(status, 'status')
 
-      //   // 2 - add `newTopic` to the store
-      //   const viewerProxy = proxyStore.get(viewerId)
-      //   const connection = ConnectionHandler.getConnection(viewerProxy, 'ListTopics_allTopics')
-      //   console.log(connection, newTopic)
-      //   if (connection) {
-      //     ConnectionHandler.insertEdgeAfter(connection, newTopic)
-      //   }
-      // },
+        // 2 - add `newTopic` to the store
+        const viewerProxy = proxyStore.get(viewerId)
+        const connection = ConnectionHandler.getConnection(viewerProxy, 'TopicList_allTopics')
+        console.log(connection, newTopic)
+        if (connection) {
+          ConnectionHandler.insertEdgeAfter(connection, newTopic)
+        }
+      },
       updater: (proxyStore, data) => {
         // require('RelayStoreProxyDebugger').dump(proxyStore)
         // 1 - retrieve the `newTopic` from the server response
@@ -68,7 +68,7 @@ export default function CreateTopicMutation(description, title, viewerId, status
         // const viewerProxy = proxyStore.getRoot()
         console.log(viewerProxy)
         // console.log(viewerProxy, proxyStore, data, newTopic, createTopicField)
-        const connection = ConnectionHandler.getConnection(viewerProxy, 'ListTopics_allTopics')
+        const connection = ConnectionHandler.getConnection(viewerProxy, 'TopicList_allTopics')
         // const storeRoot = proxyStore.getRoot();
         // const connection = ConnectionHandler.getConnection(storeRoot, 'ListTopics_allTopics')
         console.log(connection)

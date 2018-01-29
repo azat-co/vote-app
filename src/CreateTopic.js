@@ -19,13 +19,7 @@ let badgeClasses = {
   'Published': 'success'
 }
 
-const CreateTopicViewerQuery = graphql`
-  query CreateTopicViewerQuery {
-    viewer {
-      id
-    }
-  }
-`;
+
 
 class CreateTopic extends React.Component {
 
@@ -35,17 +29,8 @@ class CreateTopic extends React.Component {
   }
 
   render () {
-    return (
-      <QueryRenderer 
-        environment={this.props.environment}
-        query={CreateTopicViewerQuery}
-        render={({error, props}) => {
-          if (error) {
-            return (
-              <div>{error.message}</div>
-            )
-          } else if (props) {
-            console.log(props.viewer.id)
+    const props = this.props
+            console.log(props)
             return (
               <div className='w-100 pa4 flex justify-center'>
                 <div style={{ maxWidth: 400 }} className=''>
@@ -70,7 +55,7 @@ class CreateTopic extends React.Component {
                   }
                   {this.state.description && this.state.title &&
                     <button className='pa3 bg-black-10 bn dim ttu pointer' onClick={
-                      () => this._handlePost(props.viewer.id)}>Post</button>
+                      () => this._handlePost(props.viewerId)}>Post</button>
                   }
                   <div style={{textAlign: "center", color: "red"}}>
                     <Link to="/app" >Cancel</Link>
@@ -79,15 +64,11 @@ class CreateTopic extends React.Component {
               </div>
             )
           }
-          return (<div>loading</div>)
-        }}
-      />
-    )
-  }
+ 
 
   _handlePost = (viewerId) => {
     const {description, title} = this.state
-    CreateTopicMutation(description, title, viewerId,  'Proposal', () => this.props.history.replace('/app'))
+    CreateTopicMutation(description, title, viewerId,  'Proposal', () => this.props.history.replace('/'))
   }
 
 }
