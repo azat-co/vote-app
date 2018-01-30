@@ -4,6 +4,7 @@ import {
   graphql
 } from 'react-relay'
 import { Link } from 'react-router-dom'
+import VoteMutation from './VoteMutation.js'
 
 let badgeClasses = {
   'Proposal': 'secondary',
@@ -27,7 +28,7 @@ class TopicPageView extends Component {
   }
 
   render() {
-
+    console.log(this.props)
     return (
       <div>
         <div>
@@ -40,7 +41,7 @@ class TopicPageView extends Component {
           return (            
             <li key={index}><Link to={`/topics/${topic.id}`}>{topic.title}</Link> <span className={`badge badge-${badgeClass}`}>{topic.status}</span>
               Voted: {topic.votes} {(topic.status == 'Draft' || topic.status == 'OnHold' || topic.status == 'Proposal') ?
-            <input type="button" className="btn btn-info" value="upvote" />: false}
+            <input type="button" className="btn btn-info" value="upvote" onClick={()=>this._upvote(topic.id, votes)} />: false}
             </li>
           )}
         )}
@@ -55,7 +56,11 @@ class TopicPageView extends Component {
       </div>
     )
   }
+  _upvote(id, votes) {
+    VoteMutation(id, ++votes, null, ()=>{
 
+    })
+  }
   _loadMore() {
     if (!this.props.relay.hasMore()) {
       console.log(`Nothing more to load`)
