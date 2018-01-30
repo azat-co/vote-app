@@ -33,7 +33,7 @@ class TopicPageView extends Component {
             let topic = node
             let badgeClass = badgeClasses[topic.status]
           return (            
-            <li key={index}><Link to={`/app/topics/${topic.id}`}>{topic.title}</Link> <span className={`badge badge-${badgeClass}`}>{topic.status}</span>
+            <li key={index}><Link to={`/topics/${topic.id}`}>{topic.title}</Link> <span className={`badge badge-${badgeClass}`}>{topic.status}</span>
               Voted: {topic.votes} {(topic.status == 'Draft' || topic.status == 'OnHold' || topic.status == 'Proposal') ?
             <input type="button" className="btn btn-info" value="upvote" />: false}
             </li>

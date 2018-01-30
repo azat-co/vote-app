@@ -54,7 +54,7 @@ class Topic extends Component {
             <p>{description}</p>
             <p>Votes for this course so far: {votes}</p>
             <p>Status: {status}</p>
-            <Link to="/app">Home</Link>
+            <Link to="/">Home</Link>
           </div>
         }}
       />      

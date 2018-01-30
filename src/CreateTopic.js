@@ -37,24 +37,24 @@ class CreateTopic extends React.Component {
       <div className='w-100 pa4 flex justify-center'>
         <div style={{ maxWidth: 400 }} className=''>
           <input
-            className='w-100 pa3 mv2'
+            className="w-100 pa3 mv2 form-control"
             value={this.state.title}
             placeholder='Title'
             onChange={(e) => this.setState({title: e.target.value})}
           />
           <input
-            className='w-100 pa3 mv2'
+            className='w-100 pa3 mv2  form-control'
             value={this.state.description}
             placeholder='Description'
             onChange={(e) => this.setState({description: e.target.value})}
           />
 
           {this.state.description && this.state.title &&
-            <button className='pa3 bg-black-10 bn dim ttu pointer' onClick={
-              () => this._handlePost(props.viewerId)}>Post</button>
+            <input type="button" className='btn btn-primary' onClick={
+              () => this._handlePost(props.viewerId)} value="Post"></input>
           }
           <div style={{textAlign: "center", color: "red"}}>
-            <Link to="/" >Cancel</Link>
+            <Link to="/" className="btn btn-light" >Cancel</Link>
           </div>                
         </div>
       </div>
