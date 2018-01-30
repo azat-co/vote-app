@@ -72,7 +72,6 @@ export default createPaginationContainer(TopicPageView,
         allTopics(
           first: $count,
           after: $after,
-          first: 10,
           orderBy: description_DESC
         ) @connection(key: "TopicPageView_allTopics") {
           edges {
