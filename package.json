@@ -59,6 +59,9 @@
   "babel": {
     "presets": [
       "react-app"
+    ],
+    "plugins": [
+      "relay"
     ]
   },
   "RELAY_API_ENDPOINT": "https://api.graph.cool/relay/v1/cjcy0l6ii2a4d0152w02rmkao",
