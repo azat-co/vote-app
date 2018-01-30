@@ -47,13 +47,15 @@ export default function CreateTopicMutation(description, title, viewerId, status
         newTopic.setValue(description, 'description')
         newTopic.setValue(title, 'title')
         newTopic.setValue(status, 'status')
+        console.log(ConnectionHandler)
 
         // 2 - add `newTopic` to the store
         const viewerProxy = proxyStore.get(viewerId)
+        
         const connection = ConnectionHandler.getConnection(viewerProxy, 'TopicPageView_allTopics')
         // console.log(connection, newTopic)
         if (connection) {
-          ConnectionHandler.insertEdgeAfter(connection, newTopic)
+          ConnectionHandler.insertEdgeBefore(connection, newTopic)
         }
       },
       updater: (proxyStore, data) => {
@@ -67,7 +69,9 @@ export default function CreateTopicMutation(description, title, viewerId, status
         const viewerProxy = proxyStore.get(viewerId)
         // const viewerProxy = proxyStore.getRoot()
         // console.log(viewerProxy)
+        // console.log(viewerProxy)
         // console.log(viewerProxy, proxyStore, data, newTopic, createTopicField)
+        
         const connection = ConnectionHandler.getConnection(viewerProxy, 'TopicPageView_allTopics')
         // const storeRoot = proxyStore.getRoot();
         // const connection = ConnectionHandler.getConnection(storeRoot, 'ListTopics_allTopics')

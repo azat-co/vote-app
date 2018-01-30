@@ -29,7 +29,7 @@ class TopicPageView extends Component {
   }
 
   render() {
-    console.log(this.props)
+    // console.log(this.props)
     return (
       <div>
         <div>
@@ -134,7 +134,7 @@ export default createPaginationContainer(TopicPageView,
       }
     `,
     getConnectionFromProps(props) {
-      console.log(props)
+      // console.log(props)
       return props.viewer && props.viewer.allTopics
     },
     getFragmentVariables(previousVariables, totalCount) {

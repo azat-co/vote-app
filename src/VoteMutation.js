@@ -33,16 +33,23 @@ export default function VoteMutation(topicId, votes, viewerId, callback) {
     {
       mutation,
       variables,
-      onCompleted: (response) => {
+      onCompleted: (response) => {        
+        if(!response.updateTopic) { // GraphQL back end error
+          console.error('problem!')
+        }
+        console.log('completed')
         console.log(response)
+        
         callback()
       },
-      onError: err => console.error(err),
+      onError: err => console.error(err), // connection error
       optimisticUpdater: (proxyStore) => {
-
+        console.log('optimistic')
+        
       },
       updater: (proxyStore, data) => {
-
+        console.log('updater')
+        
       },
     },
   )

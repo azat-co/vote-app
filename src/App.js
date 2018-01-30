@@ -36,7 +36,7 @@ class App extends React.Component {
         `}
         variables={{}}
         render={({ error, props }) => {
-          console.log('tut', props)
+          // console.log('tut', props)
           if (error) {
             return <div>Error!</div>;
           }
