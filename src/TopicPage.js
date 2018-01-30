@@ -34,7 +34,7 @@ class TopicPage extends Component {
           } else if (props) {
             return <TopicPageView viewer={props.viewer} />
           }
-          return <div>Loading</div>
+          return <div><i className="fa fa-spinner fa-spin" style={{fontSize: 36}}></i> Loading...</div>
         }}
       />
     )

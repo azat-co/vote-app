@@ -41,7 +41,7 @@ class App extends React.Component {
             return <div>Error!</div>;
           }
           if (!props) {
-            return <div>Loading...</div>;
+            return <div><i className="fa fa-spinner fa-spin" style={{fontSize: 36}}></i> Loading...</div>;
           }
           return <div>
             <header className="App-header">
@@ -50,7 +50,7 @@ class App extends React.Component {
             </header>
             <div className="container-fluid">
               <p className="App-intro">
-                You can <Link to="/create-topic">propose (create) a  new topic </Link> or get <Link to="/help">help.</Link>
+              You can <Link to="/create-topic">propose (create) a  new topic </Link> or get <Link to="/help">help.</Link>
               </p>
               <Switch>
                 <Route path="/help" exact component={()=><p>

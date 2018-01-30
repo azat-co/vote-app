@@ -41,9 +41,12 @@ class TopicPageView extends Component {
         )}
         </ol>
         </div>
+        {(!this.props.relay.hasMore())? <div/>:
         <div className='flex ml4 mv3 gray'>
-          <a className='pointer btn btn-success'  onClick={() => this._loadMore()}>More</a>
+          <a className='pointer btn btn-success'  onClick={() => this._loadMore()}>
+          {(this.props.relay.isLoading()? <i className='fa fa-spinner fa-spin'></i>: false)} Show More</a>
         </div>
+        }
       </div>
     )
   }
@@ -69,6 +72,7 @@ export default createPaginationContainer(TopicPageView,
         allTopics(
           first: $count,
           after: $after,
+          first: 10,
           orderBy: description_DESC
         ) @connection(key: "TopicPageView_allTopics") {
           edges {
