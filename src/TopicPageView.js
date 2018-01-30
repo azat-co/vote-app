@@ -61,7 +61,7 @@ class TopicPageView extends Component {
     )
   }
   _upvote(id, votes) {
-    console.log(this.state)
+    // console.log(this.state)
     this.setState({
       votingProgress: {
         ...this.state.votingProgress, 
@@ -69,7 +69,7 @@ class TopicPageView extends Component {
       }
     })
     VoteMutation(id, ++votes, null, ()=>{
-      console.log(this.state)
+      // console.log(this.state)
       this.setState({
         votingProgress: {
           ...this.state.votingProgress, 

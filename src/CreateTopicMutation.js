@@ -35,8 +35,8 @@ export default function CreateTopicMutation(description, title, viewerId, status
       mutation,
       variables,
       onCompleted: (response) => {
-        // console.log(response, environment)
-       callback()
+        
+        callback()
       },
       onError: err => console.error(err),
       optimisticUpdater: (proxyStore) => {
