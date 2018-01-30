@@ -19,6 +19,8 @@ export type TopicPageView_viewer = {|
       |};
     |}>;
     +pageInfo: {|
+      +hasPreviousPage: boolean;
+      +startCursor: ?string;
       +hasNextPage: boolean;
       +endCursor: ?string;
     |};
@@ -128,6 +130,20 @@ const fragment /*: ConcreteFragment*/ = {
           "name": "pageInfo",
           "plural": false,
           "selections": [
+            {
+              "kind": "ScalarField",
+              "alias": null,
+              "args": null,
+              "name": "hasPreviousPage",
+              "storageKey": null
+            },
+            {
+              "kind": "ScalarField",
+              "alias": null,
+              "args": null,
+              "name": "startCursor",
+              "storageKey": null
+            },
             {
               "kind": "ScalarField",
               "alias": null,

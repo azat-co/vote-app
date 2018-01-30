@@ -5,7 +5,7 @@ import {
 } from 'react-relay'
 import environment from './createRelayEnvironment'
 import TopicPageView from './TopicPageView'
-const ITEMS_PER_PAGE = 10
+const ITEMS_PER_PAGE = 20 // for initial query
 
 const TopicPageQuery = graphql`
   query TopicPageQuery(

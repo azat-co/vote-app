@@ -17,7 +17,9 @@ let badgeClasses = {
   'Published': 'success'
 }
 class TopicPageView extends Component {
-
+  state = {
+    showSpinner: false
+  }
   componentDidMount() {
   }
 
@@ -44,7 +46,7 @@ class TopicPageView extends Component {
         {(!this.props.relay.hasMore())? <div/>:
         <div className='flex ml4 mv3 gray'>
           <a className='pointer btn btn-success'  onClick={() => this._loadMore()}>
-          {(this.props.relay.isLoading()? <i className='fa fa-spinner fa-spin'></i>: false)} Show More</a>
+          {(this.state.showSpinner)? <i className='fa fa-spinner fa-spin'></i>: false} Show More</a>
         </div>
         }
       </div>
@@ -59,8 +61,10 @@ class TopicPageView extends Component {
       console.log(`Request is already pending`)
       return
     }
-
-    this.props.relay.loadMore(10)
+    this.setState({showSpinner: true})
+    this.props.relay.loadMore(10, ()=>{
+      this.setState({showSpinner: false})
+    }) // for show more
   }
 
 }
@@ -83,6 +87,8 @@ export default createPaginationContainer(TopicPageView,
             }
           }
           pageInfo {
+            hasPreviousPage
+            startCursor
             hasNextPage
             endCursor
           }
@@ -103,6 +109,7 @@ export default createPaginationContainer(TopicPageView,
       }
     `,
     getConnectionFromProps(props) {
+      console.log(props)
       return props.viewer && props.viewer.allTopics
     },
     getFragmentVariables(previousVariables, totalCount) {
@@ -112,6 +119,7 @@ export default createPaginationContainer(TopicPageView,
       }
     },
     getVariables(props, paginationInfo, fragmentVariables) {
+      console.log(paginationInfo)
       return {
         count: paginationInfo.count,
         after: paginationInfo.cursor,

@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash d93f455411a1c86194d435e38dbf0eff
+ * @relayHash b847260739f3e11de62fc8a4eb8e94b9
  */
 
 /* eslint-disable */
@@ -37,6 +37,8 @@ fragment TopicPageView_viewer on Viewer {
       }
     }
     pageInfo {
+      hasPreviousPage
+      startCursor
       hasNextPage
       endCursor
     }
@@ -227,6 +229,20 @@ const batch /*: ConcreteBatch*/ = {
                         "kind": "ScalarField",
                         "alias": null,
                         "args": null,
+                        "name": "hasPreviousPage",
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "args": null,
+                        "name": "startCursor",
+                        "storageKey": null
+                      },
+                      {
+                        "kind": "ScalarField",
+                        "alias": null,
+                        "args": null,
                         "name": "hasNextPage",
                         "storageKey": null
                       },
@@ -322,7 +338,7 @@ const batch /*: ConcreteBatch*/ = {
       }
     ]
   },
-  "text": "query TopicPageQuery(\n  $count: Int!\n  $after: String\n) {\n  viewer {\n    ...TopicPageView_viewer\n    id\n  }\n}\n\nfragment TopicPageView_viewer on Viewer {\n  allTopics(first: $count, after: $after, orderBy: description_DESC) {\n    edges {\n      node {\n        id\n        title\n        votes\n        status\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n    ... on TopicConnection {\n      edges {\n        cursor\n        node {\n          __typename\n          id\n        }\n      }\n      pageInfo {\n        endCursor\n        hasNextPage\n      }\n    }\n  }\n}\n"
+  "text": "query TopicPageQuery(\n  $count: Int!\n  $after: String\n) {\n  viewer {\n    ...TopicPageView_viewer\n    id\n  }\n}\n\nfragment TopicPageView_viewer on Viewer {\n  allTopics(first: $count, after: $after, orderBy: description_DESC) {\n    edges {\n      node {\n        id\n        title\n        votes\n        status\n      }\n    }\n    pageInfo {\n      hasPreviousPage\n      startCursor\n      hasNextPage\n      endCursor\n    }\n    ... on TopicConnection {\n      edges {\n        cursor\n        node {\n          __typename\n          id\n        }\n      }\n      pageInfo {\n        endCursor\n        hasNextPage\n      }\n    }\n  }\n}\n"
 };
 
 module.exports = batch;
