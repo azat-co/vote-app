@@ -8,6 +8,7 @@ import {Route} from 'react-router'
 import List from './List.js'
 import Topic from './Topic.js'
 import CreateTopic from './CreateTopic.js'
+import TopicPage from './TopicPage.js'
 
 import environment from './createRelayEnvironment.js'
 
@@ -57,6 +58,7 @@ class App extends React.Component {
                 <Route path='/topics/:topicId' component={Topic}/>              
               </Switch>
               <List topics={props.viewer.allTopics.edges} />
+              <TopicPage/>
             </div>
           </div>
         }}
