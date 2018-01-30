@@ -15,7 +15,8 @@ let badgeClasses = {
 }
 class TopicPageView extends Component {
   state = {
-    showSpinner: false
+    showSpinner: false,
+    votingProgress: {}
   }
   componentDidMount() {
      window.onscroll = (ev) => { // infinite automatic scroll
@@ -41,7 +42,10 @@ class TopicPageView extends Component {
           return (            
             <li key={index}><Link to={`/topics/${topic.id}`}>{topic.title}</Link> <span className={`badge badge-${badgeClass}`}>{topic.status}</span>
               Voted: {topic.votes} {(topic.status == 'Draft' || topic.status == 'OnHold' || topic.status == 'Proposal') ?
-            <input type="button" className="btn btn-info" value="upvote" onClick={()=>this._upvote(topic.id, votes)} />: false}
+            <button className={(this.state.votingProgress[topic.id])? 'btn btn-info disabled': 'btn btn-info'} onClick={()=>this._upvote(topic.id, votes)} >                      
+            {(this.state.votingProgress[topic.id])? <i className='fa fa-spinner fa-spin'></i>: false} upvote
+            </button>
+            : false}
             </li>
           )}
         )}
@@ -57,8 +61,21 @@ class TopicPageView extends Component {
     )
   }
   _upvote(id, votes) {
+    console.log(this.state)
+    this.setState({
+      votingProgress: {
+        ...this.state.votingProgress, 
+        [id]: true
+      }
+    })
     VoteMutation(id, ++votes, null, ()=>{
-
+      console.log(this.state)
+      this.setState({
+        votingProgress: {
+          ...this.state.votingProgress, 
+          [id]: false
+        }
+      })
     })
   }
   _loadMore() {
