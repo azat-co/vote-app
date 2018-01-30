@@ -5,10 +5,6 @@ import {
 } from 'react-relay'
 import { Link } from 'react-router-dom'
 
-
-
-
-
 let badgeClasses = {
   'Proposal': 'secondary',
   'Draft': 'primary',
@@ -21,6 +17,13 @@ class TopicPageView extends Component {
     showSpinner: false
   }
   componentDidMount() {
+     window.onscroll = (ev) => { // infinite automatic scroll
+      //  console.log(ev)
+      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight -20) {
+         console.log("bottom", this);
+         this._loadMore()
+      }
+    };
   }
 
   render() {
