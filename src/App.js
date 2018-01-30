@@ -50,15 +50,18 @@ class App extends React.Component {
             </header>
             <div className="container-fluid">
               <p className="App-intro">
-                To get started, select a topic for a new course to learn more about it and vote. Or <Link to="/create-topic">propose (create) a  new topic.</Link>
+                You can <Link to="/create-topic">propose (create) a  new topic </Link> or get <Link to="/help">help.</Link>
               </p>
               <Switch>
-                <Route path="/help" exact component={()=>'this is help'}/>
+                <Route path="/help" exact component={()=><p>
+                  To get started, select a topic for a new course to learn more about it and vote. Or <Link to="/create-topic">propose (create) a  new topic </Link> or <Link to="/">browse topics.</Link>
+                </p>}/>
                 <Route path='/create-topic' component={()=><CreateTopic environment={environment} viewerId={props.viewer.id}/>}/>              
                 <Route path='/topics/:topicId' component={Topic}/>              
+                <Route path='/' component={TopicPage}/>              
+                
               </Switch>
-              <List topics={props.viewer.allTopics.edges} />
-              <TopicPage/>
+              {/* <List topics={props.viewer.allTopics.edges} /> */}
             </div>
           </div>
         }}

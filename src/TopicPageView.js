@@ -3,8 +3,19 @@ import {
   createPaginationContainer,
   graphql
 } from 'react-relay'
+import { Link } from 'react-router-dom'
 
 
+
+
+
+let badgeClasses = {
+  'Proposal': 'secondary',
+  'Draft': 'primary',
+  'OnHold': 'info',
+  'Rejected': 'light',
+  'Published': 'success'
+}
 class TopicPageView extends Component {
 
   componentDidMount() {
@@ -15,12 +26,23 @@ class TopicPageView extends Component {
     return (
       <div>
         <div>
-          {this.props.viewer.allTopics.edges.map(({node}, index) => (
-            <div key={node.__id} index={index} topic={node}>{JSON.stringify(node)}</div>
-          ))}
+          <h2>Topics for New Courses</h2>
+          <ol>
+          {this.props.viewer.allTopics.edges.map(({node}, index) => {
+            const {title, description, votes, status} = node
+            let topic = node
+            let badgeClass = badgeClasses[topic.status]
+          return (            
+            <li key={index}><Link to={`/app/topics/${topic.id}`}>{topic.title}</Link> <span className={`badge badge-${badgeClass}`}>{topic.status}</span>
+              Voted: {topic.votes} {(topic.status == 'Draft' || topic.status == 'OnHold' || topic.status == 'Proposal') ?
+            <input type="button" className="btn btn-info" value="upvote" />: false}
+            </li>
+          )}
+        )}
+        </ol>
         </div>
         <div className='flex ml4 mv3 gray'>
-          <a  className='pointer' onClick={() => this._loadMore()}>More</a>
+          <a className='pointer btn btn-success'  onClick={() => this._loadMore()}>More</a>
         </div>
       </div>
     )

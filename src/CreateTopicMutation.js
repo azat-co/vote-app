@@ -35,7 +35,7 @@ export default function CreateTopicMutation(description, title, viewerId, status
       mutation,
       variables,
       onCompleted: (response) => {
-        console.log(response, environment)
+        // console.log(response, environment)
        callback()
       },
       onError: err => console.error(err),
@@ -50,8 +50,8 @@ export default function CreateTopicMutation(description, title, viewerId, status
 
         // 2 - add `newTopic` to the store
         const viewerProxy = proxyStore.get(viewerId)
-        const connection = ConnectionHandler.getConnection(viewerProxy, 'TopicList_allTopics')
-        console.log(connection, newTopic)
+        const connection = ConnectionHandler.getConnection(viewerProxy, 'TopicPageView_allTopics')
+        // console.log(connection, newTopic)
         if (connection) {
           ConnectionHandler.insertEdgeAfter(connection, newTopic)
         }
@@ -62,21 +62,21 @@ export default function CreateTopicMutation(description, title, viewerId, status
         const createTopicField = proxyStore.getRootField('createTopic')
         const newTopic = createTopicField.getLinkedRecord('topicEdge')
 
-        console.log(data, newTopic, createTopicField)
+        // console.log(data, newTopic, createTopicField)
         // 2 - add `newTopic` to the store
         const viewerProxy = proxyStore.get(viewerId)
         // const viewerProxy = proxyStore.getRoot()
-        console.log(viewerProxy)
+        // console.log(viewerProxy)
         // console.log(viewerProxy, proxyStore, data, newTopic, createTopicField)
-        const connection = ConnectionHandler.getConnection(viewerProxy, 'TopicList_allTopics')
+        const connection = ConnectionHandler.getConnection(viewerProxy, 'TopicPageView_allTopics')
         // const storeRoot = proxyStore.getRoot();
         // const connection = ConnectionHandler.getConnection(storeRoot, 'ListTopics_allTopics')
-        console.log(connection)
-        storeDebugger.dump(proxyStore)
+        console.log('conn', connection)
+        // storeDebugger.dump(proxyStore)
         if (connection) {
-          ConnectionHandler.insertEdgeAfter(connection, newTopic)
+          ConnectionHandler.insertEdgeBefore(connection, newTopic)
         }
-        storeDebugger.dump(viewerProxy)
+        // storeDebugger.dump(viewerProxy)
       },
     },
   )

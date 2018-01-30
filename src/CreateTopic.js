@@ -2,7 +2,7 @@ import { withRouter } from 'react-router'
 import CreateTopicMutation  from './CreateTopicMutation.js'
 import { Link } from 'react-router-dom'
 import React, { Component } from 'react';
-
+import { Route, Redirect } from 'react-router'
 import {
   createFragmentContainer,
   graphql,
@@ -26,49 +26,49 @@ class CreateTopic extends React.Component {
   state = {
     description: '',
     title: '',
+    redirect: false
   }
 
   render () {
+    if (this.state.redirect) return <Redirect to="/" push/>
     const props = this.props
-            console.log(props)
-            return (
-              <div className='w-100 pa4 flex justify-center'>
-                <div style={{ maxWidth: 400 }} className=''>
-                  <input
-                    className='w-100 pa3 mv2'
-                    value={this.state.title}
-                    placeholder='Title'
-                    onChange={(e) => this.setState({title: e.target.value})}
-                  />
-                  <input
-                    className='w-100 pa3 mv2'
-                    value={this.state.description}
-                    placeholder='Description'
-                    onChange={(e) => this.setState({description: e.target.value})}
-                  />
-                  {this.state.title &&
-                    <img 
-                      src={this.state.title} 
-                      alt={this.state.description} 
-                      className='w-100 mv3' 
-                    />
-                  }
-                  {this.state.description && this.state.title &&
-                    <button className='pa3 bg-black-10 bn dim ttu pointer' onClick={
-                      () => this._handlePost(props.viewerId)}>Post</button>
-                  }
-                  <div style={{textAlign: "center", color: "red"}}>
-                    <Link to="/app" >Cancel</Link>
-                  </div>
-                </div>
-              </div>
-            )
+    console.log(props)
+    return (
+      <div className='w-100 pa4 flex justify-center'>
+        <div style={{ maxWidth: 400 }} className=''>
+          <input
+            className='w-100 pa3 mv2'
+            value={this.state.title}
+            placeholder='Title'
+            onChange={(e) => this.setState({title: e.target.value})}
+          />
+          <input
+            className='w-100 pa3 mv2'
+            value={this.state.description}
+            placeholder='Description'
+            onChange={(e) => this.setState({description: e.target.value})}
+          />
+
+          {this.state.description && this.state.title &&
+            <button className='pa3 bg-black-10 bn dim ttu pointer' onClick={
+              () => this._handlePost(props.viewerId)}>Post</button>
           }
+          <div style={{textAlign: "center", color: "red"}}>
+            <Link to="/" >Cancel</Link>
+          </div>                
+        </div>
+      </div>
+    )
+  }
  
 
   _handlePost = (viewerId) => {
     const {description, title} = this.state
-    CreateTopicMutation(description, title, viewerId,  'Proposal', () => this.props.history.replace('/'))
+    CreateTopicMutation(description, title, viewerId,  'Proposal', () => {
+      this.setState({redirect: true})
+      // this.props.history.replace('/')
+      // window.location.replace('/')
+    })
   }
 
 }
